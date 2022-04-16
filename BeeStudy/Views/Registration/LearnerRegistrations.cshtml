@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Registration>
+
+@{
+    ViewData["Title"] = "Courses By Learner";
+}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            @if (Model.Count() == 0)
+            {
+                <h4>You are not tracking any course. </h4>
+            }
+            else
+            {
+                <h3 class="col py-3 text-justify">Courses you are tracking</h3>
+                <table class="table table-responsive table-striped ">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Course Title</th>
+                            <th>List Price</th>
+                            <th>Current Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (Registration reg in Model)
+                        {
+                            <tr class="align-baseline">
+                                <td>
+                                    <a class="" asp-controller="Course" asp-action="Details" asp-route-id="@reg.Course.Id">@Html.DisplayFor(model => reg.Course.Title)</a>
+                                </td>
+                                <td> @Html.DisplayFor(model => reg.Course.ListPrice)</td>
+                                <td> @Html.DisplayFor(model => reg.Course.CurrentPrice)</td>
+                                <td>
+                                    <a class="btn btn-outline-danger btn-sm ml-5" asp-controller="Learner" asp-action="UserRemoveCourse" asp-route-learnerId="@reg.Learner.Id" asp-route-courseId="@reg.Course.Id" onclick="return confirm('Are you sure you want to stop tracking this course?')">Stop Tracking</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            <a class="btn btn-outline-info px-3 mr-3" asp-action="Add">Track a new course</a>
+
+        </div>
+
+    </div>
+
+
+</div>
