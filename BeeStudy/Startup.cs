@@ -1,4 +1,5 @@
 using BeeStudy.Data;
+using BeeStudy.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,16 @@ namespace BeeStudy
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            //add services
+            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ILearnerService, LearnerService>();
+
+
+
+
             services.AddControllersWithViews();
         }
 
