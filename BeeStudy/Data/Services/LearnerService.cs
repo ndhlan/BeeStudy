@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeeStudy.Data.Services
 {
-    public class LearnerService
+    public class LearnerService: ILearnerService
     {
         private readonly ApplicationDbContext _context;
 
