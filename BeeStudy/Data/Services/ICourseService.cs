@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeeStudy.Data.Services
 {
-    interface ICourseService
+    public interface ICourseService
     {
         Task<IEnumerable<Course>> GetAllAsync();
 
