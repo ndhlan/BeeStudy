@@ -101,7 +101,7 @@ namespace BeeStudy.Controllers
 
 
         //GET Registration/LearnerRegistrations/
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> LearnerRegistrations()
         {
             var userEmail = User.Identity.Name;
