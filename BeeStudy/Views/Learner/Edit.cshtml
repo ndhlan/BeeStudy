@@ -1,0 +1,56 @@
+﻿@model Learner
+
+@{
+    ViewData["Title"] = "Edit Learner Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-auto px-3">
+            <h3 class="col py-3 text-justify text-primary">Edit Learner: @Html.DisplayFor(l => l.Name)</h3>
+            <form asp-controller="Learner" asp-action="Edit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group form-inline">
+                    <label class="col-3 col-form-label d-block text-left">@Html.DisplayNameFor(l => l.Id)</label>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="Id" readonly />
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                    <label class="col-3 col-form-label d-block text-left">@Html.DisplayNameFor(l => l.Name)</label>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                    <label class="col-3 col-form-label d-block text-left">@Html.DisplayNameFor(l => l.Email)</label>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                    <label class="col-6 col-form-label d-block text-left">@Html.DisplayNameFor(l => l.IsRegisteredUser)</label>
+                    <div class="col-6">
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <span asp-validation-for="IsRegisteredUser" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col py-3">
+                        <input type="submit" value="Save" class="btn btn-outline-info px-3 mr-3" />
+                        <a class="btn btn-outline-info px-3 mr-3" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+                        <a class="btn btn-outline-info px-3 mr-3 float-right" asp-action="Index">Back To All Learners</a>
+
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>
