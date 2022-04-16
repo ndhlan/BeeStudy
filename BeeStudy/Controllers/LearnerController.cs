@@ -139,7 +139,7 @@ namespace BeeStudy.Controllers
 
 
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> RemoveCourse(int learnerId, int courseId)
+        public async Task<IActionResult> UserRemoveCourse(int learnerId, int courseId)
         {
             var userEmail = User.Identity.Name;
             var learner = await _service.GetByEmailAsync(userEmail);
@@ -155,6 +155,14 @@ namespace BeeStudy.Controllers
             }
 
 
+        }
+
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> RemoveCourse(int learnerId, int courseId)
+        {
+            await _service.RemoveCourseAsync(learnerId, courseId);
+
+            return RedirectToAction("Details", new { id = learnerId });
         }
 
 
