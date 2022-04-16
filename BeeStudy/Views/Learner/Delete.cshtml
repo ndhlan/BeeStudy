@@ -1,0 +1,68 @@
+﻿@model Learner
+
+@{
+    ViewData["Title"] = "Delete Learner";
+}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h3 class="col py-3 text-justify text-danger">Deleting Learner: @Html.DisplayFor(l => l.Name)</h3>
+            <table class="table text-justify">
+                <tr>
+                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Id)</td>
+                    <td>@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Name)</td>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Email)</td>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.IsRegisteredUser)</td>
+                    <td>@Html.DisplayFor(model => model.IsRegisteredUser)</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-weight-bold ">Following Courses</td>
+                    <td>
+                        <table class="table table-borderless table-responsive ">
+
+                            @foreach (var reg in Model.Registrations)
+                            {
+                                <tr class="align-baseline">
+                                    <td>
+                                        <a class="" asp-controller="Course" asp-action="Details" asp-route-id="@reg.Course.Id">@Html.DisplayFor(model => reg.Course.Title)</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-sm ml-5" asp-action="RemoveCourse" asp-route-learnerId="@Model.Id" asp-route-courseId="@reg.Course.Id">Stop Tracking</a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr class="my-3">
+                    <td class="text-left">
+                        <a class="btn btn-outline-danger px-3 mr-3" asp-action="DeleteConfirmed" asp-route-id="@Model.Id"> Delete</a>
+                        <a class="btn btn-outline-info px-3 mr-3" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-outline-info px-3 mr-3" asp-action="Index">Back To All Learners</a>
+                    </td>
+
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
