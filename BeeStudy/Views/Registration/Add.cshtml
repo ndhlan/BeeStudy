@@ -2,20 +2,20 @@
 
 
 @{
-    ViewData["Title"] = "Udemy Courses Price Tracking";
+    ViewData["Title"] = "Bee Study | Life-long Learning On A Budget";
 }
 <html>
 <head>
-    <title>Udemy Courses Price Tracking</title>
+    <title>Bee Study</title>
 </head>
 <body>
-    <div class="container ">
-        <div class="container bg-light ">
+    <div class="container bg-light shadow py-4 px-5">
+        <div class="container jumbotron p-3">
             <div class="row justify-content-center">
-                <h2 class="col col-lg-8 col-md-10 col-sm-12 col-12 display-5 text-primary"> Life-long learning on a budget</h2>
+                <h2 class="col display-5 text-primary text-center"> Life-long learning on a budget</h2>
             </div>
             <div class="row justify-content-center lead">
-                <p class="col col-lg-8 col-md-10 col-sm-12 col-12">
+                <p class="col col-auto text-justify mx-auto">
                     Do you intend to register for a Udemy course but its price is pulling you back? <br />
                     Are you tired of checking Udemy everyday hoping to see your favourite courses on discount? <br />
                     Wasting no more time on checking for a discount. <br />
@@ -29,28 +29,28 @@
                 <form asp-controller="Registration" asp-action="Add" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group row justify-content-center">
-                        <label class="col col-lg-2 col-md-2 col-sm-3 col-3 col-form-label mr-0">Course's link:</label>
-                        <div class="col col-lg-6 col-md-8 col-sm-9 col-9">
+                        <label class="col col-2 col-form-label mr-0">Course's link</label>
+                        <div class="col">
                             <input class="form-control" asp-for="Course.Url" />
                             <span asp-validation-for="Course.Url" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col col-lg-2 col-md-2 col-sm-3 col-3 col-form-label mr-0">Name:</label>
-                        <div class="col col-lg-6 col-md-8 col-sm-9 col-9">
+                        <label class="col col-2 col-form-label mr-0">Your Name</label>
+                        <div class="col">
                             <input class="form-control" asp-for="Learner.Name" />
                             <span asp-validation-for="Learner.Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col col-lg-2 col-md-2 col-sm-3 col-3 col-form-label mr-0">Email</label>
-                        <div class="col col-lg-6 col-md-8 col-sm-9 col-9">
+                        <label class="col col-2 col-form-label mr-0">Your Email</label>
+                        <div class="col ">
                             <input class="form-control" asp-for="Learner.Email" />
                             <span asp-validation-for="Learner.Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <div class="col col-lg-8 col-md-10 col-sm-12 col-12">
+                        <div class="col ">
                             <input type="submit" value="Start Tracking" class="btn btn-info my-2" />
                         </div>
                     </div>
