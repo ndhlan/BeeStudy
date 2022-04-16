@@ -1,0 +1,43 @@
+﻿@model RegistrationViewModel
+
+
+@{
+    ViewData["Title"] = "Track a new course - Confirmation";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-8 col-md-9 col-sm-10 col-12">
+            <h3>Hello @Model.Learner.Name</h3>
+            <p> We will send a notification to your email @Model.Learner.Email whenever the buyable price of this course changes </p>
+        </div>
+    </div>
+    <div class="row  justify-content-center">
+        <div class="col col-lg-8 col-md-9 col-sm-10 col-12">
+            <div class="card mb-3 box-shadow">
+                <h3 class="card-header text-primary">@Model.Course.Title</h3>
+                <img src="@Model.Course.ImageUrl" class="d-block user-select-none mx-auto my-1 px-0" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" style="text-anchor:middle; max-width:400px" />
+                <div class="card-body">
+                    <p class="card-text">@Model.Course.Headline</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">List price: CA$@Model.Course.ListPrice</li>
+                    <li class="list-group-item text-danger">
+                        Current price: CA$@Model.Course.CurrentPrice
+                        @{
+                            if (Model.Course.DiscountExpiration != "")
+                            {
+                                <span class="badge rounded-pill bg-warning"> @Model.Course.DiscountExpiration left</span>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col col-lg-8 col-md-9 col-sm-10 col-12">
+            <p>* This course's price may change at the time you check it out. If you see a different price, try clear your browser's cookies or use @Model.Course.Browser in incognito mode.</p>
+        </div>
+    </div>
+</div>
