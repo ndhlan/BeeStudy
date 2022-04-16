@@ -80,7 +80,7 @@ namespace BeeStudy
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Registration}/{action=Add}/{id?}");
                 endpoints.MapRazorPages();
             });
 
