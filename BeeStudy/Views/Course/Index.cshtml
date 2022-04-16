@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Course>
+
+@{
+    ViewData["Title"] = "Tracking Courses";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Title)</th>
+                        <th>@Html.DisplayNameFor(model => model.ListPrice)</th>
+                        <th>@Html.DisplayNameFor(model => model.LastUpdatedPrice)</th>
+                        <th>@Html.DisplayNameFor(model => model.CurrentPrice)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Course course in Model)
+                    {
+                        <tr>
+                            <td class="col-4 text-justify">@Html.DisplayFor(c => course.Title)</td>
+                            <td class="">@Html.DisplayFor(c => course.ListPrice)</td>
+                            <td>@Html.DisplayFor(c => course.LastUpdatedPrice)</td>
+                            <td>@Html.DisplayFor(c => course.CurrentPrice)</td>
+                            <td class="col-3 ">
+                                <a class="btn btn-outline-info mx-1" asp-action="Details" asp-route-id="@course.Id">Details</a>
+                                <a class="btn btn-outline-danger mx-1" asp-action="Delete" asp-route-id="@course.Id">Delete</a>
+                            </td>
+                        </tr>
+
+                    }
+
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
