@@ -106,26 +106,6 @@ namespace BeeStudy
                 }
             }
 
-            var _admin = await UserManager.FindByEmailAsync("bee.study.2022@gmail.com");
-
-            if (_admin == null)
-            {
-                var admin = new IdentityUser
-                {
-                    UserName = "bee.study.2022@gmail.com",
-                    Email = "bee.study.2022@gmail.com"
-                };
-
-                var createAdmin = await UserManager.CreateAsync(admin, "sidePrj2022$");
-                if (createAdmin.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(admin, "Admin");
-                }
-
-            }
-
-
-
 
 
         }
