@@ -37,7 +37,7 @@
                                         <a class="" asp-controller="Course" asp-action="Details" asp-route-id="@reg.Course.Id">@Html.DisplayFor(model => reg.Course.Title)</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-outline-danger btn-sm ml-5" asp-action="RemoveCourse" asp-route-learnerId="@Model.Id" asp-route-courseId="@reg.Course.Id">Remove</a>
+                                        <a class="btn btn-outline-danger btn-sm ml-5" asp-action="RemoveCourse" asp-route-learnerId="@Model.Id" asp-route-courseId="@reg.Course.Id" onclick="return confirm('Are you sure you want to remove this course?')">Remove</a>
 
                                     </td>
                                 </tr>
