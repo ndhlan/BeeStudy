@@ -28,11 +28,11 @@
                         @foreach (Registration reg in Model)
                         {
                             <tr class="align-baseline">
-                                <td>
-                                    <a class="" asp-controller="Course" asp-action="Details" asp-route-id="@reg.Course.Id">@Html.DisplayFor(model => reg.Course.Title)</a>
+                                <td class="text-justify">
+                                    <a asp-controller="Course" asp-action="Details" asp-route-id="@reg.Course.Id">@Html.DisplayFor(model => reg.Course.Title)</a>
                                 </td>
-                                <td> @Html.DisplayFor(model => reg.Course.ListPrice)</td>
-                                <td> @Html.DisplayFor(model => reg.Course.CurrentPrice)</td>
+                                <td> $@Html.DisplayFor(model => reg.Course.ListPrice)</td>
+                                <td> $@Html.DisplayFor(model => reg.Course.CurrentPrice)</td>
                                 <td>
                                     <a class="btn btn-outline-danger btn-sm ml-5" asp-controller="Learner" asp-action="UserRemoveCourse" asp-route-learnerId="@reg.Learner.Id" asp-route-courseId="@reg.Course.Id" onclick="return confirm('Are you sure you want to stop tracking this course?')">Stop Tracking</a>
                                 </td>
@@ -41,7 +41,7 @@
                     </tbody>
                 </table>
             }
-            <a class="btn btn-outline-info px-3 mr-3" asp-action="Add">Track a new course</a>
+            <a class="btn btn-outline-info px-3 mr-3 float-left" asp-action="Add">Track a new course</a>
 
         </div>
 
