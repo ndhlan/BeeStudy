@@ -36,7 +36,7 @@ namespace BeeStudy.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToPage();
+                return RedirectToAction("Add", "Registration");
             }
         }
     }
