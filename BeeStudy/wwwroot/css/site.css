@@ -59,9 +59,19 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #fffef6;
+    font-family: "Lucida Sans", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+
+.headline {
+    color: #f5bc04;
+    font-weight: 600;
+}
+
+
 .footer {
   position: absolute;
   bottom: 0;
