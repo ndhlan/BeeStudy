@@ -10,6 +10,7 @@ namespace BeeStudy.Data.Services
         private readonly ApplicationDbContext _context;
         private CourseService _courseService;
         private LearnerService _learnerService;
+        private IdentityUserService _userService;
 
         public RegistrationService(ApplicationDbContext context)
         {
@@ -39,6 +40,19 @@ namespace BeeStudy.Data.Services
 
             }
         }
+
+        public IIdentityUserService UserService
+        {
+            get
+            {
+                return _userService = _userService ?? new IdentityUserService(_context);
+            }
+            set
+            {
+
+            }
+        }
+
 
         public void Save()
         {

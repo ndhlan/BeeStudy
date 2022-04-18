@@ -11,6 +11,8 @@ namespace BeeStudy.Data.Services
 
         ILearnerService LearnerService { get; }
 
+        IIdentityUserService UserService { get;  }
+
         void Save();
 
     }
