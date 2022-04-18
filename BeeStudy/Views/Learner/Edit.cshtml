@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-auto px-3">
-            <h3 class="col py-3 text-justify text-primary">Edit Learner: @Html.DisplayFor(l => l.Name)</h3>
+            <h3 class="col py-3 text-justify headline">Edit Learner: @Html.DisplayFor(l => l.Name)</h3>
             <form asp-controller="Learner" asp-action="Edit" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group form-inline">
@@ -33,7 +33,7 @@
                 <div class="form-group form-inline">
                     <label class="col-6 col-form-label d-block text-left">@Html.DisplayNameFor(l => l.IsRegisteredUser)</label>
                     <div class="col-6">
-                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <input class="form-check-input mt-0" type="checkbox" asp-for="IsRegisteredUser">
                         <span asp-validation-for="IsRegisteredUser" class="text-danger"></span>
                     </div>
                 </div>

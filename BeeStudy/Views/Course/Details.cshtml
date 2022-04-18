@@ -8,11 +8,11 @@
 <div class="container">
     <div class="row text-center">
         <div class="col">
-            <h3 class="text-justify text-primary">@Html.DisplayFor(model => model.Title)</h3>
-            <table class="table text-justify">
+            <h3 class="text-justify headline">@Html.DisplayFor(model => model.Title)</h3>
+            <table class="table text-justify table-responsive">
                 <tr>
                     <td colspan="2">
-                        <img src="@Model.ImageUrl" alt="@Model.Title" style="max-width" />
+                        <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid" />
                     </td>
                 </tr>
 
@@ -42,17 +42,17 @@
                 </tr>
                 <tr>
                     <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.ListPrice)</td>
-                    <td>@Html.DisplayFor(model => model.ListPrice)</td>
+                    <td>$@Html.DisplayFor(model => model.ListPrice)</td>
                 <tr>
                     <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPrice)</td>
-                    <td>@Html.DisplayFor(model => model.LastUpdatedPrice)</td>
+                    <td>$@Html.DisplayFor(model => model.LastUpdatedPrice)</td>
                 <tr>
                     <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPriceDate)</td>
                     <td>@Html.DisplayFor(model => model.LastUpdatedPriceDate)</td>
                 </tr>
                 <tr>
                     <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPrice)</td>
-                    <td>@Html.DisplayFor(model => model.CurrentPrice)</td>
+                    <td>$@Html.DisplayFor(model => model.CurrentPrice)</td>
                 </tr>
                 <tr>
                     <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPriceDate)</td>
