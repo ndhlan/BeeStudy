@@ -49,6 +49,7 @@ namespace BeeStudy
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILearnerService, LearnerService>();
+            services.AddScoped<IIdentityUserService, IdentityUserService>();
 
 
             services.AddControllersWithViews();
