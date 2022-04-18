@@ -1,6 +1,7 @@
 ﻿using BeeStudy.Data.Services;
 using BeeStudy.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,16 @@ namespace BeeStudy.Controllers
             else
             {
                 newLearner = learner;
+            }
+
+            //check if learner is registered user
+            var registeredUsers = _service.UserService.GetAll();
+            foreach(IdentityUser user in registeredUsers)
+            {
+                if (user.Email.Equals(newLearner.Email))
+                {
+                    newLearner.IsRegisteredUser = true;
+                }
             }
 
             //Add new course-learner relationship
