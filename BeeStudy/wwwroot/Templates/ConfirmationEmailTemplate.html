@@ -6,15 +6,22 @@
 </head>
 <body>
     <p>Hello {0}</p>
-    <p> Thank you for using <strong>Bee Study</strong>. We will send a notification to {1} whenever the buyable price of the following course changes.</p>
+    <p> Thank you for using <span style="color: #f5bc04; background-color: black; font-weight:600">Bee Study</span>. We will send a notification to {1} whenever the buyable price of the following course changes.</p>
 
-    <div style="border:thin">
-        <h3>{2}</h3>
-        <h4>{3}</h4>
-        <img src="{4}" />
-        <p>List price: CA$ {5}</p>
-        <p> <strong>Current price: CA$ {6} </strong></p>
-        <p>** This course's price may change at the time you check it out. If you see a different price, try clear your browser's cookies or use {7} in incognito mode.</p>
+    <div style="border-style:groove; max-width:300px; text-align:center; padding:10px; margin-left: auto; margin-right:auto" >
+        <div style="padding:5px">
+            <h3>{2}</h3>
+            <h4>{3}</h4>
+            <img src="{4}" style="max-width: 270px; object-fit:cover" />
+            <p>List price: CA$ {5}</p>
+            <p style="color: red; font-weight: 600"> Current price: CA$ {6}</p>
+            <p>** This course's price may change at the time you check it out. If you see a different price, try clear your browser's cookies or use {7} in incognito mode.</p>
+
+        </div>
+    </div>
+    <div>
+
+        <p>Visit <a href="#">Bee Study</a> to manage your tracking courses. </p>
     </div>
 
 </body>
