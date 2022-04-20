@@ -2,6 +2,7 @@
 using BeeStudy.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,14 @@ namespace BeeStudy.Controllers
     {
 
         private readonly IRegistrationService _service;
+        private readonly IEmailSender _emailSender;
+        private readonly EmailContent _emailContent;
 
-        public RegistrationController(IRegistrationService service)
+        public RegistrationController(IRegistrationService service, IEmailSender emailSender, EmailContent emailContent)
         {
             _service = service;
+            _emailSender = emailSender;
+            _emailContent = emailContent;
         }
 
 
@@ -82,18 +87,12 @@ namespace BeeStudy.Controllers
             if (course == null)
             {
                 await _service.CourseService.AddAsync(newCourse);
-
-                //System.Diagnostics.Debug.WriteLine("Relationship " + newCourse.Registrations.Count());
             }
             else
             {
                 await _service.CourseService.UpdateAsync(course.Id, newCourse);
-
-                //System.Diagnostics.Debug.WriteLine("Relationship " + newCourse.Registrations.Count());
             }
             return RedirectToAction("Confirm", new { courseId = newCourse.Id, learnerId = newLearner.Id });
-
-
         }
 
         [AllowAnonymous]
@@ -106,6 +105,11 @@ namespace BeeStudy.Controllers
                 Course = course,
                 Learner = learner
             };
+
+            //send confirmation email to learner
+            var emailBody = _emailContent.BuildEmailBody(learner, course);
+            var emailSubject = "Bee Study | Tracking a new course confirmation";
+            await _emailSender.SendEmailAsync(learner.Email, emailSubject, emailBody);
 
             return View(newRegistration);
         }
