@@ -85,7 +85,7 @@ namespace BeeStudy.Areas.Identity.Pages.Account
 
                 //Check if the email was confirmed.
                 IdentityUser user = await _userManager.FindByNameAsync(Input.Email);
-                if (!await _userManager.IsEmailConfirmedAsync(user))
+                if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
                 {
                     ModelState.AddModelError("", "You need to confirm your email first.");
                     return Page();
