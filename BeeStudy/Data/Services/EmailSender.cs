@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
@@ -15,11 +16,13 @@ namespace BeeStudy.Data.Services
 
         private readonly ILogger _logger;
 
+
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
-                           ILogger<EmailSender> logger)
+                           ILogger<EmailSender> logger
+                          )
         {
             Options = optionsAccessor.Value;
-            _logger = logger;
+            _logger = logger;            
         }
 
         public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
@@ -53,7 +56,6 @@ namespace BeeStudy.Data.Services
                                    ? $"Email to {toEmail} queued successfully!"
                                    : $"Failure Email to {toEmail}");
         }
-
 
 
     }

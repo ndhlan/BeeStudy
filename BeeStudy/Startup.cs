@@ -53,6 +53,7 @@ namespace BeeStudy
             services.AddScoped<IIdentityUserService, IdentityUserService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<EmailContent, EmailContent>();
 
             services.AddControllersWithViews();
         }
