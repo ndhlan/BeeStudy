@@ -131,7 +131,9 @@ namespace BeeStudy.Data.Services
             foreach (string userAgent in userAgents)
             {
                 _httpClient.DefaultRequestHeaders.Accept.Clear();
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
+
 
                 HttpResponseMessage priceResponse = await _httpClient.GetAsync(requestPriceUrl);
 

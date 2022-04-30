@@ -109,9 +109,8 @@ namespace BeeStudy
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-
-
-
         }
+
+
     }
 }
