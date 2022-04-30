@@ -31,7 +31,7 @@ namespace BeeStudy.Data.Services
         {
             if (string.IsNullOrEmpty(Options.SendGridKey))
             {
-                throw new Exception("Null SendGridKey");
+                _logger.LogInformation("Default SendGridKey not found.");
             }
             await Execute(Options.SendGridKey, subject, message, toEmail);
         }
