@@ -136,27 +136,22 @@ namespace BeeStudy.Data.Services
             //Check for new CurrentPrice
             var requestPriceUrl = _httpClient.BaseAddress + string.Format("course-landing-components/{0}/me/?components=buy_button,discount_expiration,purchase", newCourse.UdemyId);
 
-            if (string.IsNullOrEmpty(Options.UdemyClientId))
-            {
-                System.Diagnostics.Debug.WriteLine("******************Default UdemyClientId not found.");
-            }
+            //if (string.IsNullOrEmpty(Options.UdemyClientId))
+            //{
+            //    System.Diagnostics.Debug.WriteLine("******************Default UdemyClientId not found.");
+            //}
 
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                                        "Basic", Convert.ToBase64String(
-                                        ASCIIEncoding.ASCII.GetBytes(
-                                        $"{Options.UdemyClientId}:{Options.UdemyClientSecret}")));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Options.UdemyAuthorization);
 
+           
 
-
-            System.Diagnostics.Debug.WriteLine("******************" + _httpClient.DefaultRequestHeaders.Authorization);
+            //System.Diagnostics.Debug.WriteLine("******************" + _httpClient.DefaultRequestHeaders.Authorization);
 
 
             foreach (string userAgent in _userAgents)
             {
-                _httpClient.DefaultRequestHeaders.Accept.Clear();
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
 
                 System.Diagnostics.Debug.WriteLine("HEADER " + _httpClient.DefaultRequestHeaders.Authorization);
 

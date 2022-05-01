@@ -12,5 +12,7 @@ namespace BeeStudy.Data.Services
         public string UdemyClientId { get; set; }
 
         public string UdemyClientSecret { get; set; }
+
+        public string UdemyAuthorization { get; set; }
     }
 }
