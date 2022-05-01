@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +13,20 @@ namespace BeeStudy.Data.Services
         private LearnerService _learnerService;
         private IdentityUserService _userService;
 
-        public RegistrationService(ApplicationDbContext context)
+        public IOptions<AuthMessageSenderOptions> Options { get; } //Set with Secret Manager.
+
+
+        public RegistrationService(ApplicationDbContext context, IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             _context = context;
+            Options = optionsAccessor;
         }
 
         public ICourseService CourseService
         {
             get
             {
-                return _courseService = _courseService ?? new CourseService(_context);
+                return _courseService = _courseService ?? new CourseService(_context, Options);
             }
             set
             {

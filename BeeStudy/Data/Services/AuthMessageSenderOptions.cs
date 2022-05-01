@@ -7,6 +7,10 @@ namespace BeeStudy.Data.Services
 {
     public class AuthMessageSenderOptions
     {
-        public string? SendGridKey { get; set; }
+        public string SendGridKey { get; set; }
+
+        public string UdemyClientId { get; set; }
+
+        public string UdemyClientSecret { get; set; }
     }
 }

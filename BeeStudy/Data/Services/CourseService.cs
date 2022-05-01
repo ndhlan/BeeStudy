@@ -1,6 +1,7 @@
 ﻿using BeeStudy.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,23 +20,26 @@ namespace BeeStudy.Data.Services
         private static readonly string _userAgentFirefox = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0 Viewer/96.9.6838.39";
         private static readonly string _userAgentChrome = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.4977.0 Safari/537.36";
         private static readonly string _userAgentEdge = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36 Edg/100.0.1185.29 Trailer/93.3.1282.83";
-        private readonly string[] userAgents = { _userAgentChrome, _userAgentFirefox, _userAgentEdge };
-        private static readonly string UdemyClientId;
-        private static readonly string UdemyClientSecret;
+        private readonly string[] _userAgents = { _userAgentChrome, _userAgentFirefox, _userAgentEdge };
+
 
         private readonly ApplicationDbContext _context;
         private readonly HttpClient _httpClient;
+        public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
 
 
-        public CourseService(ApplicationDbContext context)
+        public CourseService(ApplicationDbContext context, IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             _context = context;
+            Options = optionsAccessor.Value;
+
             _httpClient = new HttpClient()
             {
                 BaseAddress = new Uri("https://www.udemy.com/api-2.0/")
             };
 
         }
+
 
 
         public async Task AddAsync(Course newCourse)
@@ -132,17 +136,29 @@ namespace BeeStudy.Data.Services
             //Check for new CurrentPrice
             var requestPriceUrl = _httpClient.BaseAddress + string.Format("course-landing-components/{0}/me/?components=buy_button,discount_expiration,purchase", newCourse.UdemyId);
 
+            if (string.IsNullOrEmpty(Options.UdemyClientId))
+            {
+                System.Diagnostics.Debug.WriteLine("******************Default UdemyClientId not found.");
+            }
+
+
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                                         "Basic", Convert.ToBase64String(
                                         ASCIIEncoding.ASCII.GetBytes(
-                                        $"{UdemyClientId}:{UdemyClientSecret}")));
+                                        $"{Options.UdemyClientId}:{Options.UdemyClientSecret}")));
 
-            foreach (string userAgent in userAgents)
+
+
+            System.Diagnostics.Debug.WriteLine("******************" + _httpClient.DefaultRequestHeaders.Authorization);
+
+
+            foreach (string userAgent in _userAgents)
             {
                 _httpClient.DefaultRequestHeaders.Accept.Clear();
                 _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
                 _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
 
+                System.Diagnostics.Debug.WriteLine("HEADER " + _httpClient.DefaultRequestHeaders.Authorization);
 
                 HttpResponseMessage priceResponse = await _httpClient.GetAsync(requestPriceUrl);
 
