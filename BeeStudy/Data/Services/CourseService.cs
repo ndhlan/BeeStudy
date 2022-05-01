@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BeeStudy.Data.Services
@@ -18,6 +20,8 @@ namespace BeeStudy.Data.Services
         private static readonly string _userAgentChrome = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.4977.0 Safari/537.36";
         private static readonly string _userAgentEdge = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36 Edg/100.0.1185.29 Trailer/93.3.1282.83";
         private readonly string[] userAgents = { _userAgentChrome, _userAgentFirefox, _userAgentEdge };
+        private static readonly string UdemyClientId;
+        private static readonly string UdemyClientSecret;
 
         private readonly ApplicationDbContext _context;
         private readonly HttpClient _httpClient;
@@ -127,6 +131,11 @@ namespace BeeStudy.Data.Services
 
             //Check for new CurrentPrice
             var requestPriceUrl = _httpClient.BaseAddress + string.Format("course-landing-components/{0}/me/?components=buy_button,discount_expiration,purchase", newCourse.UdemyId);
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                                        "Basic", Convert.ToBase64String(
+                                        ASCIIEncoding.ASCII.GetBytes(
+                                        $"{UdemyClientId}:{UdemyClientSecret}")));
 
             foreach (string userAgent in userAgents)
             {
