@@ -88,7 +88,7 @@ namespace BeeStudy
                 endpoints.MapRazorPages();
             });
 
-            //CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider).Wait();
 
         }
 
