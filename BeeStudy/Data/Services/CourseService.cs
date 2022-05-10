@@ -120,26 +120,7 @@ namespace BeeStudy.Data.Services
                 }
             }
 
-            //Compose course object 
-
-            var courseInfo = new
-            {
-                UdemyId = newCourse.UdemyId,
-                Url = newCourse.Url,
-                Title = newCourse.Title,
-                Headline = newCourse.Headline,
-                ImageUrl = newCourse.ImageUrl
-            };
-
-            //Serialize object to json
-            string jsonData = JsonConvert.SerializeObject(courseInfo);
-            var data = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            //Send HTTPTrigger to Azure Logic App 
-
-            var appUrl = "https://prod-09.canadacentral.logic.azure.com:443/workflows/4583d307ab304d97899d336426fbf20a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rlkjR4Eb24jmC_QOQJOm29TKEuHbxD-cVoU7iIWyBvQ";
-
-            var result = await _httpClient.PostAsync(appUrl, data);
+            
 
             return newCourse;
         }

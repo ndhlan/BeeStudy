@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BeeStudy.Controllers
@@ -15,14 +16,12 @@ namespace BeeStudy.Controllers
     {
 
         private readonly IRegistrationService _service;
-        private readonly IEmailSender _emailSender;
-        private readonly EmailContent _emailContent;
+        private readonly HttpClient _httpClient;
 
         public RegistrationController(IRegistrationService service, IEmailSender emailSender, EmailContent emailContent)
         {
             _service = service;
-            _emailSender = emailSender;
-            _emailContent = emailContent;
+            _httpClient = new HttpClient();
         }
 
 
@@ -100,16 +99,36 @@ namespace BeeStudy.Controllers
         {
             var course = await _service.CourseService.GetByIdAsync(courseId);
             var learner = await _service.LearnerService.GetByIdAsync(learnerId);
+
             RegistrationViewModel newRegistration = new RegistrationViewModel()
             {
                 Course = course,
                 Learner = learner
             };
 
-            //send confirmation email to learner
-            var emailBody = _emailContent.BuildEmailBody(learner, course);
-            var emailSubject = "Bee Study | Tracking a new course confirmation";
-            await _emailSender.SendEmailAsync(learner.Email, emailSubject, emailBody);
+            //send HTTPTrigger to SendOneCourseId 
+            //Compose course object 
+            var courseInfo = new
+            {
+                Name = learner.Name,
+                Email = learner.Email,
+                UdemyId = course.UdemyId,
+                Url = course.Url,
+                Title = course.Title,
+                Headline = course.Headline,
+                ImageUrl = course.ImageUrl
+            };
+
+            //Serialize object to json
+            string jsonData = JsonConvert.SerializeObject(courseInfo);
+            var data = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            //Send HTTPTrigger to Azure Logic App
+            var appUrl = "https://prod-09.canadacentral.logic.azure.com:443/workflows/4583d307ab304d97899d336426fbf20a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rlkjR4Eb24jmC_QOQJOm29TKEuHbxD-cVoU7iIWyBvQ";
+
+            var result = await _httpClient.PostAsync(appUrl, data);
+
+
 
             return View(newRegistration);
         }
