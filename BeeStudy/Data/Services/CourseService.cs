@@ -17,12 +17,6 @@ namespace BeeStudy.Data.Services
     public class CourseService: ICourseService
     {
 
-        private static readonly string _userAgentFirefox = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0 Viewer/96.9.6838.39";
-        private static readonly string _userAgentChrome = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.4977.0 Safari/537.36";
-        private static readonly string _userAgentEdge = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36 Edg/100.0.1185.29 Trailer/93.3.1282.83";
-        private readonly string[] _userAgents = { _userAgentChrome, _userAgentFirefox, _userAgentEdge };
-
-
         private readonly ApplicationDbContext _context;
         private readonly HttpClient _httpClient;
         public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
@@ -126,66 +120,26 @@ namespace BeeStudy.Data.Services
                 }
             }
 
+            //Compose course object 
 
-            //Get or update course prices
-
-            //Move CurrentPrice and Date to LastUpdatedPrice and Date
-            newCourse.LastUpdatedPrice = newCourse.CurrentPrice;
-            newCourse.LastUpdatedPriceDate = newCourse.CurrentPriceDate;
-
-            //Check for new CurrentPrice
-            var requestPriceUrl = _httpClient.BaseAddress + string.Format("course-landing-components/{0}/me/?components=buy_button,discount_expiration,purchase", newCourse.UdemyId);
-
-            //if (string.IsNullOrEmpty(Options.UdemyClientId))
-            //{
-            //    System.Diagnostics.Debug.WriteLine("******************Default UdemyClientId not found.");
-            //}
-
-
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Options.UdemyAuthorization);
-
-           
-
-            //System.Diagnostics.Debug.WriteLine("******************" + _httpClient.DefaultRequestHeaders.Authorization);
-
-
-            foreach (string userAgent in _userAgents)
+            var courseInfo = new
             {
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
+                UdemyId = newCourse.UdemyId,
+                Url = newCourse.Url,
+                Title = newCourse.Title,
+                Headline = newCourse.Headline,
+                ImageUrl = newCourse.ImageUrl
+            };
 
-                System.Diagnostics.Debug.WriteLine("HEADER " + _httpClient.DefaultRequestHeaders.Authorization);
+            //Serialize object to json
+            string jsonData = JsonConvert.SerializeObject(courseInfo);
+            var data = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage priceResponse = await _httpClient.GetAsync(requestPriceUrl);
+            //Send HTTPTrigger to Azure Logic App 
 
-                if (priceResponse.IsSuccessStatusCode)
-                {
-                    var priceDetails = (JObject)JsonConvert.DeserializeObject(await priceResponse.Content.ReadAsStringAsync());
-                    var tempCurrentPrice = (decimal)priceDetails["buy_button"]["button"]["payment_data"]["purchasePrice"]["amount"];
+            var appUrl = "https://prod-09.canadacentral.logic.azure.com:443/workflows/4583d307ab304d97899d336426fbf20a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=rlkjR4Eb24jmC_QOQJOm29TKEuHbxD-cVoU7iIWyBvQ";
 
-                    if (newCourse.CurrentPrice == 0 || (newCourse.CurrentPrice != 0 && tempCurrentPrice < newCourse.CurrentPrice))
-                    {
-                        newCourse.ListPrice = (decimal)priceDetails["purchase"]["data"]["pricing_result"]["list_price"]["amount"]; ;
-                        newCourse.CurrentPrice = (decimal)priceDetails["buy_button"]["button"]["payment_data"]["purchasePrice"]["amount"];
-                        newCourse.DiscountExpiration = (string)priceDetails["discount_expiration"]["data"]["discount_deadline_text"];
-
-                        newCourse.CurrentPriceDate = DateTime.Now;
-                        if (userAgent.Equals(_userAgentFirefox))
-                        {
-                            newCourse.Browser = "Firefox";
-                        }
-                        else if (userAgent.Equals(_userAgentChrome))
-                        {
-                            newCourse.Browser = "Chrome";
-                        }
-                        else
-                        {
-                            newCourse.Browser = "Edge";
-                        }
-                    }
-
-                }
-            }
-
+            var result = await _httpClient.PostAsync(appUrl, data);
 
             return newCourse;
         }
