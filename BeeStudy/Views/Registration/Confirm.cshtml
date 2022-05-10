@@ -20,25 +20,7 @@
                 <div class="card-body">
                     <p class="card-text">@Model.Course.Headline</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">List price: CA$@Model.Course.ListPrice</li>
-                    <li class="list-group-item text-danger">
-                        Current price: CA$@Model.Course.CurrentPrice
-                        @{
-                            if (Model.Course.DiscountExpiration != "")
-                            {
-                                <span class="badge rounded-pill bg-warning"> @Model.Course.DiscountExpiration left</span>
-                            }
-                        }
-                    </li>
-                </ul>
             </div>
-            <div class="row justify-content-center">
-                <div class="">
-                    <p>* This course's price may change at the time you check it out. If you see a different price, try clear your browser's cookies or use @Model.Course.Browser in incognito mode.</p>
-                </div>
-            </div>
-
         </div>
 
         <div class="col-lg-6 d-none d-lg-block">
