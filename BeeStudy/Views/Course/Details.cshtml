@@ -19,54 +19,54 @@
                 @if ((await authorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
                 {
                     <tr>
-                        <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Id)</td>
+                        <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.Id)</td>
                         <td>@Html.DisplayFor(model => model.Id)</td>
                     </tr>
                     <tr>
-                        <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.UdemyId)</td>
+                        <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.UdemyId)</td>
                         <td>@Html.DisplayFor(model => model.UdemyId)</td>
                     </tr>
                 }
 
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Title)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.Title)</td>
                     <td>@Html.DisplayFor(model => model.Title)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Headline)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.Headline)</td>
                     <td>@Html.DisplayFor(model => model.Headline)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.Url)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.Url)</td>
                     <td>@Html.DisplayFor(model => model.Url)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.ListPrice)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.ListPrice)</td>
                     <td>$@Html.DisplayFor(model => model.ListPrice)</td>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPrice)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPrice)</td>
                     <td>$@Html.DisplayFor(model => model.LastUpdatedPrice)</td>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPriceDate)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.LastUpdatedPriceDate)</td>
                     <td>@Html.DisplayFor(model => model.LastUpdatedPriceDate)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPrice)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPrice)</td>
                     <td>$@Html.DisplayFor(model => model.CurrentPrice)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPriceDate)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.CurrentPriceDate)</td>
                     <td>@Html.DisplayFor(model => model.CurrentPriceDate)</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-weight-bold ">@Html.DisplayNameFor(model => model.DiscountExpiration)</td>
+                    <td class="font-weight-bold ">@Html.DisplayNameFor(model => model.DiscountExpiration)</td>
                     <td>@Html.DisplayFor(model => model.DiscountExpiration)</td>
                 </tr>
 
                 @if ((await authorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
                 {
                     <tr>
-                        <td class="pr-5 font-weight-bold ">Following Learners</td>
+                        <td class="font-weight-bold ">Following Learners</td>
                         <td>
                             <table class="table table-borderless table-responsive ">
                                 @foreach (var reg in Model.Registrations)
