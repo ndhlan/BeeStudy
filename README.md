@@ -16,6 +16,7 @@ Admin account can access list of courses, list of users, list of registrations a
 
 ### Technologies used
 - ASP.NET Core MVC, Entity Framework
+- REST API, JSON
 - HTML, CSS, Bootstrap
 - Azure SQL Database, Azure Web Apps, Azure Functions, Azure Logic App
 
